@@ -1,5 +1,7 @@
 package com.marneux.gimenotechtest.ui.views.detail
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -44,6 +47,7 @@ import com.marneux.gimenotechtest.R
 import com.marneux.gimenotechtest.ui.theme.CorpoBlue
 
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltViewModel(), employeeId: Int) {
@@ -52,6 +56,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
     }
 
     val employee = viewModel.employee.collectAsState().value
+    val context = LocalContext.current
 
     employee?.let {
         Scaffold(
@@ -107,18 +112,36 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(
-                            painter = painterResource(R.drawable.phone),
-                            contentDescription = "Teléfono",
-                            modifier = Modifier.size(40.dp),
-                            tint = CorpoBlue
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.mail),
-                            contentDescription = "Email",
-                            modifier = Modifier.size(40.dp),
-                            tint = CorpoBlue
-                        )
+                        IconButton(
+                            onClick = {
+                                val intent = Intent(Intent.ACTION_DIAL).apply {
+                                    data = Uri.parse("tel:${it.phoneNumber}")
+                                }
+                                context.startActivity(intent)
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.phone),
+                                contentDescription = "Teléfono",
+                                modifier = Modifier.size(40.dp),
+                                tint = CorpoBlue
+                            )
+                        }
+                        IconButton(
+                            onClick = {
+                                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                    data = Uri.parse("mailto:${it.email}")
+                                }
+                                context.startActivity(intent)
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.mail),
+                                contentDescription = "Email",
+                                modifier = Modifier.size(40.dp),
+                                tint = CorpoBlue
+                            )
+                        }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(color = Color.LightGray)
