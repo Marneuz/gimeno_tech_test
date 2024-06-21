@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -38,6 +38,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,7 +46,6 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.marneux.gimenotechtest.R
 import com.marneux.gimenotechtest.ui.theme.CorpoBlue
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,15 +85,41 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(it.imageResId),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary)
-                    )
+                    if (employee.imageResId != null) {
+                        Box(
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clip(CircleShape)
+                                .background(Color.Blue)
+                        ) {
+                            Image(
+                                painter = rememberAsyncImagePainter(employee.imageResId),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                alignment = Alignment.Center,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(CircleShape)
+                            )
+                        }
+                    } else {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clip(CircleShape)
+                                .background(CorpoBlue)
+                        ) {
+                            Text(
+                                text = "${employee.name.first()}${employee.lastName.first()}",
+                                color = Color.White,
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.Center,
+                                fontSize = 24.sp
+                            )
+                        }
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "${it.name} ${it.lastName}",
@@ -122,7 +148,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.phone),
-                                contentDescription = "Teléfono",
+                                contentDescription = "Phone",
                                 modifier = Modifier.size(40.dp),
                                 tint = CorpoBlue
                             )
@@ -137,7 +163,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.mail),
-                                contentDescription = "Email",
+                                contentDescription = "Mail",
                                 modifier = Modifier.size(40.dp),
                                 tint = CorpoBlue
                             )

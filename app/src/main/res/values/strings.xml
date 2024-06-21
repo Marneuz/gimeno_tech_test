@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">GimenoTechTest</string>
+    <string name="register">REGISTRARME</string>
+    <string name="access">ACCEDER</string>
+    <string name="password">Contraseña</string>
+    <string name="user">Usuario</string>
+    <string name="create_account">CREAR CUENTA</string>
+    <string name="confirm_password">Confirmar Contraseña</string>
+    <string name="search">Buscar...</string>
+    <string name="exit_session">Cerrar sesión</string>
+    <string name="directory">Directorio</string>
 </resources>
