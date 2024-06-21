@@ -18,7 +18,7 @@ fun NavGraph(startDestination: String = "login") {
         composable("directory") { DirectoryView(navController) }
         composable("details/{employeeId}") { backStackEntry ->
             val employeeId = backStackEntry.arguments?.getString("employeeId")?.toInt() ?: 0
-            DetailView(navController, employeeId)
+            DetailView(navController = navController, employeeId = employeeId)
         }
     }
 }

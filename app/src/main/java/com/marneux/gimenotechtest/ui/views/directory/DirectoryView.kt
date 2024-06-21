@@ -112,7 +112,8 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                     stickyHeader {
                         Text(
                             text = initial.toString(),
-                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.Gray,
+                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp)
