@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.compose.foundation:foundation:1.6.8")
 
+
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.google.dagger:hilt-android:2.49")
     implementation(libs.androidx.navigation.runtime.ktx)

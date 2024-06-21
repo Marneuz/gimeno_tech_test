@@ -4,39 +4,23 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.MoreVert
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +36,7 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
     val searchQuery by viewModel.searchQuery.collectAsState()
     val listState = rememberLazyListState()
     var isSearching by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -82,21 +67,33 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                 actions = {
                     if (isSearching) {
                         IconButton(onClick = { isSearching = false }) {
-                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Cerrar " +
-                                    "búsqueda", Modifier.size(34.dp), tint = CorpoBlue)
+                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Cerrar búsqueda", Modifier.size(34.dp), tint = CorpoBlue)
                         }
                     } else {
                         IconButton(onClick = { isSearching = true }) {
-                            Icon(Icons.Default.Search, contentDescription = "Buscar",
-                                Modifier.size(34.dp), tint = CorpoBlue)
+                            Icon(Icons.Default.Search, contentDescription = "Buscar", Modifier.size(34.dp), tint = CorpoBlue)
                         }
-                        IconButton(onClick = {
-                            navController.navigate("login") {
-                                popUpTo("directory") { inclusive = true }
+                        Box {
+                            IconButton(onClick = { expanded = true }) {
+                                Icon(Icons.Outlined.MoreVert, contentDescription = "Más opciones", Modifier.size(34.dp), tint = CorpoBlue)
                             }
-                        }) {
-                            Icon(Icons.Outlined.MoreVert, contentDescription = "Logout", Modifier
-                                .size(34.dp), tint = CorpoBlue)
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text("Cerrar sesión") },
+                                    onClick = {
+                                        expanded = false
+                                        navController.navigate("login") {
+                                            popUpTo("directory") { inclusive = true }
+                                        }
+                                    },
+                                    leadingIcon = {
+                                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, tint = CorpoBlue)
+                                    }
+                                )
+                            }
                         }
                     }
                 },
@@ -130,5 +127,3 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
         }
     )
 }
-
-
