@@ -63,15 +63,21 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("androidx.compose.foundation:foundation:1.6.8")
 
-
+    // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.google.dagger:hilt-android:2.49")
+
+    //Navigation
     implementation(libs.androidx.navigation.runtime.ktx)
+
+    //Hilt
     kapt("com.google.dagger:hilt-compiler:2.49")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.dagger:hilt-android:2.49")
 
+    //DataStore
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    //Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
