@@ -96,7 +96,7 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
         HandleViewState(
             viewState = registerState,
             navController = navController,
-            successRoute = "directory",
+            successRoute = "login",
             popUpToRoute = "login"
         )
 

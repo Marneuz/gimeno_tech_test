@@ -107,12 +107,14 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                                     text = { Text(stringResource(R.string.exit_session)) },
                                     onClick = {
                                         expanded = false
+                                        viewModel.logout()
                                         navController.navigate("login") {
                                             popUpTo("directory") { inclusive = true }
                                         }
                                     },
                                     leadingIcon = {
-                                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null, tint = CorpoBlue)
+                                        Icon(Icons.AutoMirrored.Filled.ExitToApp,
+                                            contentDescription = "logout", tint = CorpoBlue)
                                     }
                                 )
                             }

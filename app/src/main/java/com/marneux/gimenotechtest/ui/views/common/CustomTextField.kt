@@ -44,10 +44,12 @@ fun CustomTextField(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 25.dp, )
+            .padding(vertical = 8.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.height(56.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.height(56.dp)
+        ) {
             Icon(
                 icon,
                 contentDescription = "$label Icon",
@@ -65,8 +67,8 @@ fun CustomTextField(
                         Text(
                             label,
                             color = Color.Gray,
-                            style = if (isFocused) MaterialTheme.typography.bodySmall else MaterialTheme.typography.titleLarge,
-                            fontSize = if (isFocused) 12.sp else 18.sp
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = if (isFocused) 12.sp else 16.sp
                         )
                     },
                     visualTransformation = visualTransformation,
@@ -80,7 +82,8 @@ fun CustomTextField(
                         unfocusedBorderColor = Color.Transparent,
                         disabledBorderColor = Color.Transparent,
                         errorBorderColor = Color.Transparent
-                    )
+                    ),
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 HorizontalDivider(

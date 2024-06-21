@@ -46,6 +46,12 @@ class DataStoreManager @Inject constructor(@ApplicationContext private val conte
             preferences[PASSWORD_KEY] = password
         }
     }
+
+    suspend fun clearUser() {
+        context.dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
 }
 
 
