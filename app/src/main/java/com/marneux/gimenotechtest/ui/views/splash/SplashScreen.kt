@@ -18,21 +18,26 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController, viewModel: SplashViewModel = hiltViewModel()) {
+    // Observa el estado de `hasUser` del ViewModel
     val hasUser by viewModel.hasUser.collectAsState(initial = false)
 
+    // Efecto lanzado cuando se carga
     LaunchedEffect(Unit) {
-        delay(1000) // Simula el tiempo de carga
+        delay(1000) // Simula el tiempo de carga con un retraso de 1 segundo
         if (hasUser) {
+            // Navega al directorio si existe un usuario registrado
             navController.navigate("directory") {
                 popUpTo("splash") { inclusive = true }
             }
         } else {
+            // Navega a la pantalla de inicio de sesión si no existe un usuario registrado
             navController.navigate("login") {
                 popUpTo("splash") { inclusive = true }
             }
         }
     }
 
+    // Muestra una caja centrada con un mensaje de carga
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

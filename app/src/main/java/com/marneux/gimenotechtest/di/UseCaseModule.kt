@@ -2,6 +2,8 @@ package com.marneux.gimenotechtest.di
 
 import com.marneux.gimenotechtest.domain.repository.EmployeeRepository
 import com.marneux.gimenotechtest.domain.repository.UserRepository
+import com.marneux.gimenotechtest.domain.usecases.CheckUserUseCase
+import com.marneux.gimenotechtest.domain.usecases.DeleteUserUseCase
 import com.marneux.gimenotechtest.domain.usecases.GetEmployeeByIdUseCase
 import com.marneux.gimenotechtest.domain.usecases.GetEmployeesUseCase
 import com.marneux.gimenotechtest.domain.usecases.LoginUseCase
@@ -24,6 +26,15 @@ object UseCaseModule {
     fun provideRegisterUserUseCase(userRepository: UserRepository): RegisterUserUseCase {
         return RegisterUserUseCase(userRepository)
     }
+    @Provides
+    fun provideCheckUserUseCase(userRepository: UserRepository): CheckUserUseCase {
+        return CheckUserUseCase(userRepository)
+    }
+
+    @Provides
+    fun provideDeleteUserUseCase(userRepository: UserRepository): DeleteUserUseCase {
+        return DeleteUserUseCase(userRepository)
+    }
 
     @Provides
     fun provideGetEmployeesUseCase(employeeRepository: EmployeeRepository): GetEmployeesUseCase {
@@ -35,4 +46,5 @@ object UseCaseModule {
             GetEmployeeByIdUseCase {
         return GetEmployeeByIdUseCase(employeeRepository)
     }
+
 }

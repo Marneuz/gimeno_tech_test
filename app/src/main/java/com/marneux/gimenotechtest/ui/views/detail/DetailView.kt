@@ -47,14 +47,15 @@ import coil.compose.rememberAsyncImagePainter
 import com.marneux.gimenotechtest.R
 import com.marneux.gimenotechtest.ui.theme.CorpoBlue
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltViewModel(), employeeId: Int) {
+    // Efecto lanzado al montar el componente, carga el empleado por ID
     LaunchedEffect(employeeId) {
         viewModel.loadEmployeeById(employeeId)
     }
 
+    // Observa el estado del empleado
     val employee = viewModel.employee.collectAsState().value
     val context = LocalContext.current
 
@@ -85,6 +86,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Muestra la imagen del empleado si está disponible
                     if (employee.imageResId != null) {
                         Box(
                             modifier = Modifier
@@ -103,6 +105,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                             )
                         }
                     } else {
+                        // Muestra las iniciales si no hay imagen disponible
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
@@ -121,19 +124,23 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+                    // Muestra el nombre completo del empleado
                     Text(
                         text = "${it.name} ${it.lastName}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
+                    // Muestra la posición del empleado
                     Text(
                         text = it.position,
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray
                     )
                     Spacer(modifier = Modifier.height(24.dp))
+                    // Separador horizontal
                     HorizontalDivider(color = Color.LightGray)
                     Spacer(modifier = Modifier.height(16.dp))
+                    // Botones para llamar y enviar correo
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
@@ -170,8 +177,10 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                         }
                     }
                     Spacer(modifier = Modifier.height(16.dp))
+                    // Separador horizontal
                     HorizontalDivider(color = Color.LightGray)
                     Spacer(modifier = Modifier.height(16.dp))
+                    // Muestra el número de teléfono del empleado
                     Text(
                         text = it.phoneNumber,
                         style = MaterialTheme.typography.bodyLarge,
@@ -180,6 +189,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
                             .padding(horizontal = 32.dp, vertical = 16.dp)
                             .align(Alignment.Start)
                     )
+                    // Muestra el correo electrónico del empleado
                     Text(
                         text = it.email,
                         style = MaterialTheme.typography.bodyLarge,

@@ -1,6 +1,5 @@
 package com.marneux.gimenotechtest.ui.views.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,18 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,8 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -58,14 +51,19 @@ fun LoginView(navController: NavController, viewModel: LoginViewModel = hiltView
     ) {
 
         Spacer(modifier = Modifier.height(100.dp))
-MainLogo()
+        // Logo principal
+        MainLogo()
         Spacer(modifier = Modifier.height(30.dp))
+
+        // Campo de texto para el email
         CustomTextField(
             value = email,
             onValueChange = { email = it },
             label = stringResource(R.string.user),
             icon = Icons.Outlined.Person
         )
+
+        // Campo de texto para la contraseña
         CustomTextField(
             value = password,
             onValueChange = { password = it },
@@ -74,6 +72,8 @@ MainLogo()
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.weight(0.7f))
+
+        // Botón para iniciar sesión
         Button(
             onClick = { viewModel.login(email, password) },
             enabled = isLoginEnabled,
@@ -85,6 +85,8 @@ MainLogo()
         ) {
             Text(stringResource(R.string.access))
         }
+
+        // Botón para navegar a la vista de registro
         Button(
             onClick = { navController.navigate("register") },
             modifier = Modifier
@@ -96,6 +98,7 @@ MainLogo()
             Text(stringResource(R.string.register), color = Color.White)
         }
 
+        // Maneja los diferentes estados de la vista
         HandleViewState(
             viewState = loginState,
             navController = navController,
@@ -104,6 +107,7 @@ MainLogo()
         )
         Spacer(modifier = Modifier.weight(1f))
 
+        // Logo inferior
         BottomLogo()
     }
 }

@@ -50,6 +50,7 @@ import com.marneux.gimenotechtest.ui.views.directory.composables.EmployeeCard
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = hiltViewModel()) {
+    // Recoge el estado de los empleados agrupados y la consulta de búsqueda del ViewModel
     val groupedEmployees by viewModel.groupedEmployees.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val listState = rememberLazyListState()
@@ -61,6 +62,7 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
             TopAppBar(
                 title = {
                     if (isSearching) {
+                        // Muestra un TextField para búsqueda cuando isSearching es verdadero
                         TextField(
                             value = searchQuery,
                             onValueChange = { viewModel.updateSearchQuery(it) },
@@ -69,6 +71,7 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                             modifier = Modifier.fillMaxWidth()
                         )
                     } else {
+                        // Muestra el título y el logo cuando isSearching es falso
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(R.drawable.icono),
@@ -84,12 +87,13 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                 },
                 actions = {
                     if (isSearching) {
+                        // Muestra un icono para cerrar la búsqueda cuando isSearching es verdadero
                         IconButton(onClick = { isSearching = false }) {
-                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Close " +
-                                    "search",
+                            Icon(Icons.AutoMirrored.Filled.List, contentDescription = "Close search",
                                 Modifier.size(34.dp), tint = CorpoBlue)
                         }
                     } else {
+                        // Muestra el icono de búsqueda y el menú de opciones cuando isSearching es falso
                         IconButton(onClick = { isSearching = true }) {
                             Icon(Icons.Default.Search, contentDescription = "Search", Modifier
                                 .size(34.dp), tint = CorpoBlue)
@@ -99,6 +103,7 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                                 Icon(Icons.Outlined.MoreVert, contentDescription = "More options",
                                     Modifier.size(34.dp), tint = CorpoBlue)
                             }
+                            // Muestra el menú desplegable con la opción de cerrar sesión
                             DropdownMenu(
                                 expanded = expanded,
                                 onDismissRequest = { expanded = false }
@@ -107,7 +112,7 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
                                     text = { Text(stringResource(R.string.exit_session)) },
                                     onClick = {
                                         expanded = false
-                                        viewModel.logout()
+                                        viewModel.logout() // Llama al método logout del ViewModel
                                         navController.navigate("login") {
                                             popUpTo("directory") { inclusive = true }
                                         }
@@ -125,12 +130,14 @@ fun DirectoryView(navController: NavController, viewModel: DirectoryViewModel = 
             )
         },
         content = { padding ->
+            // Muestra una lista de empleados agrupados por iniciales
             LazyColumn(
                 state = listState,
                 contentPadding = padding
             ) {
                 groupedEmployees.forEach { (initial, employees) ->
                     stickyHeader {
+                        // Encabezado pegajoso para cada grupo de empleados
                         Text(
                             text = initial.toString(),
                             color = Color.Gray,

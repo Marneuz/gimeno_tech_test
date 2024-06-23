@@ -14,13 +14,17 @@ class SplashViewModel @Inject constructor(
     private val checkUserUseCase: CheckUserUseCase
 ) : ViewModel() {
 
+    // Estado interno mutable que indica si hay un usuario registrado
     private val _hasUser = MutableStateFlow(false)
+    // Estado expuesto como flujo inmutable
     val hasUser: StateFlow<Boolean> get() = _hasUser
 
+    // Inicializa el ViewModel y verifica si hay un usuario registrado
     init {
         checkUser()
     }
 
+    // Función que verifica si hay un usuario registrado utilizando el caso de uso `checkUserUseCase`
     private fun checkUser() {
         viewModelScope.launch {
             _hasUser.value = checkUserUseCase()

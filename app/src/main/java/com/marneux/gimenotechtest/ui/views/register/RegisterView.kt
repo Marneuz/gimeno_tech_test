@@ -42,14 +42,19 @@ import com.marneux.gimenotechtest.ui.views.common.MainLogo
 
 @Composable
 fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hiltViewModel()) {
+    // Variables de estado para almacenar los valores del correo electrónico, contraseña y confirmación de contraseña
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+
+    // Verifica si el formulario de registro es válido
     val isRegisterEnabled =
         email.isValidEmail() && password.isValidPassword() && password == confirmPassword
 
+    // Estado de la vista de registro
     val registerState by viewModel.registerState.collectAsState()
 
+    // Composición de la interfaz de usuario de registro
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,15 +62,24 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Espaciador para ajustar el diseño
         Spacer(modifier = Modifier.height(100.dp))
- MainLogo()
+
+        // Componente de logo principal
+        MainLogo()
+
+        // Espaciador para ajustar el diseño
         Spacer(modifier = Modifier.height(30.dp))
+
+        // Campo de texto personalizado para el correo electrónico
         CustomTextField(
             value = email,
             onValueChange = { email = it },
             label = stringResource(R.string.user),
             icon = Icons.Outlined.Person
         )
+
+        // Campo de texto personalizado para la contraseña
         CustomTextField(
             value = password,
             onValueChange = { password = it },
@@ -73,6 +87,8 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
             icon = Icons.Outlined.Lock,
             visualTransformation = PasswordVisualTransformation()
         )
+
+        // Campo de texto personalizado para la confirmación de contraseña
         CustomTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
@@ -80,7 +96,11 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
             icon = Icons.Outlined.Lock,
             visualTransformation = PasswordVisualTransformation()
         )
+
+        // Espaciador para ajustar el diseño
         Spacer(modifier = Modifier.weight(0.7f))
+
+        // Botón de crear cuenta
         Button(
             onClick = { viewModel.register(email, password) },
             enabled = isRegisterEnabled,
@@ -93,6 +113,7 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
             Text(stringResource(R.string.create_account))
         }
 
+        // Maneja el estado de la vista de registro
         HandleViewState(
             viewState = registerState,
             navController = navController,
@@ -100,8 +121,10 @@ fun RegisterView(navController: NavController, viewModel: RegisterViewModel = hi
             popUpToRoute = "login"
         )
 
+        // Espaciador para ajustar el diseño
         Spacer(modifier = Modifier.weight(1f))
 
+        // Componente de logo inferior
         BottomLogo()
     }
 }

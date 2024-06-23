@@ -14,14 +14,13 @@ import com.marneux.gimenotechtest.ui.views.splash.SplashScreen
 fun NavGraph(startDestination: String = "splash") {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination) {
-        composable("splash") { SplashScreen(navController) }
-        composable("login") { LoginView(navController) }
-        composable("register") { RegisterView(navController) }
-        composable("directory") { DirectoryView(navController) }
+        composable("splash") { SplashScreen(navController) } // Pantalla de inicio
+        composable("login") { LoginView(navController) } // Pantalla de inicio de sesión
+        composable("register") { RegisterView(navController) } // Pantalla de registro
+        composable("directory") { DirectoryView(navController) } // Pantalla de directorio
         composable("details/{employeeId}") { backStackEntry ->
             val employeeId = backStackEntry.arguments?.getString("employeeId")?.toInt() ?: 0
-            DetailView(navController = navController, employeeId = employeeId)
+            DetailView(navController = navController, employeeId = employeeId) // Pantalla de detalles del empleado
         }
     }
 }
-

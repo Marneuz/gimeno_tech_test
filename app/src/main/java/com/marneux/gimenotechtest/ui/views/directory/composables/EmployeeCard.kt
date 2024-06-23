@@ -32,9 +32,9 @@ import coil.compose.rememberAsyncImagePainter
 import com.marneux.gimenotechtest.domain.model.Employee
 import com.marneux.gimenotechtest.ui.theme.CorpoBlue
 
-
 @Composable
 fun EmployeeCard(employee: Employee, onClick: () -> Unit) {
+    // Contenedor de tarjeta para cada empleado
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +43,9 @@ fun EmployeeCard(employee: Employee, onClick: () -> Unit) {
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
+        // Fila que contiene la imagen e información del empleado
         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            // Verifica si el empleado tiene una imagen asignada
             if (employee.imageResId != null) {
                 Box(
                     modifier = Modifier
@@ -62,6 +64,7 @@ fun EmployeeCard(employee: Employee, onClick: () -> Unit) {
                     )
                 }
             } else {
+                // Si no tiene imagen, muestra las iniciales del empleado
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
@@ -82,6 +85,7 @@ fun EmployeeCard(employee: Employee, onClick: () -> Unit) {
 
             Spacer(modifier = Modifier.width(16.dp))
 
+            // Columna que contiene el nombre y posición del empleado
             Column {
                 Text(
                     text = "${employee.lastName}, ${employee.name}",

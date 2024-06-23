@@ -13,8 +13,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.marneux.gimenotechtest.ui.theme.CorpoBlue
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextField(
     value: String,
@@ -39,7 +38,7 @@ fun CustomTextField(
     icon: ImageVector,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
-    var isFocused by remember { mutableStateOf(false) }
+    var isFocused by remember { mutableStateOf(false) } // Estado para controlar el foco
 
     Column(
         modifier = Modifier
@@ -68,7 +67,7 @@ fun CustomTextField(
                             label,
                             color = Color.Gray,
                             style = MaterialTheme.typography.bodyLarge,
-                            fontSize = if (isFocused) 12.sp else 16.sp
+                            fontSize = if (isFocused) 12.sp else 16.sp // Tamaño de fuente dependiendo del foco
                         )
                     },
                     visualTransformation = visualTransformation,
@@ -77,11 +76,11 @@ fun CustomTextField(
                         .onFocusChanged { focusState ->
                             isFocused = focusState.isFocused
                         },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                    colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = Color.Transparent,
                         unfocusedBorderColor = Color.Transparent,
                         disabledBorderColor = Color.Transparent,
-                        errorBorderColor = Color.Transparent
+                        errorBorderColor = Color.Transparent,
                     ),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
                 )
