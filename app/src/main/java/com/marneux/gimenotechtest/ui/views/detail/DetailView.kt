@@ -64,11 +64,7 @@ fun DetailView(navController: NavController, viewModel: DetailViewModel = hiltVi
             topBar = {
                 TopAppBar(
                     {
-                        IconButton(onClick = {
-                            navController.navigate("directory") {
-                                popUpTo("detail") { inclusive = true }
-                            }
-                        }) {
+                        IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Directory", Modifier
                                     .size(34.dp), tint = CorpoBlue

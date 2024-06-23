@@ -10,4 +10,8 @@
     <string name="exit_session">Cerrar sesión</string>
     <string name="directory">Directorio</string>
     <string name="loading">Prueba tecnica de Jorge Gimeno</string>
+    <string name="exit_alert_title">Esta a punto de salir</string>
+    <string name="exit_alert_text">¿Esta seguro que desea salir?</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>
