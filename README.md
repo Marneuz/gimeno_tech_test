@@ -22,7 +22,7 @@ La aplicación permite a los usuarios registrarse, iniciar sesión, ver un direc
 1. Abre la aplicación
 2. Navega a la pantalla de registro
 3. Introduce tu email y contraseña
-4. Haz clic en "Crear cuenta"
+4. Haz clic en "Registrarme"
 
 ### Inicio de Sesión
 
