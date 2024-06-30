@@ -1,4 +1,4 @@
-# GimenoTechTest
+# TechTestInterview
 
 Esta es una aplicación de demostración para gestionar un directorio de empleados, que incluye funciones de registro, inicio de sesión y visualización de detalles de los empleados.
 
